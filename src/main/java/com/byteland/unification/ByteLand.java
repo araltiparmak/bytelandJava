@@ -8,29 +8,40 @@ import java.util.stream.IntStream;
 
 public class ByteLand {
 
-    public int unify(int cityCount, int p[]) {
+    public int unify(int p[]) {
         int step = 0;
-        Node rootCity = buildByteLand(cityCount, p);
-        while (rootCity.getAllNodes().size() != 1) {
+        Node rootCity = buildByteLand(p);
+
+        while (!unificationCompleted(rootCity)) {
+            System.out.println("Step: " + step);
             List<Integer> blackList = new ArrayList<>();
 
             rootCity.getAllNodes().
                     stream().
-                    filter(node -> canUnite(blackList, node)).
+                    filter(node -> node.canUnite() && fun(blackList, node)).
                     forEach(node -> {
                         node.unionWithParent();
                         blackList.add(node.getParent().getId());
                     });
             step++;
+            System.out.println("---------------");
         }
+        System.out.println("--------------Unification Completed!----------------");
         return step;
+
     }
 
-    private boolean canUnite(List<Integer> blackList, Node node) {
-        return node.getParent() != null && !blackList.contains(node.getParent().getId()) && !node.hasLeafChild();
+    boolean fun(List<Integer> blackList, Node node) {
+        return !blackList.contains(node.getParent().getId());
     }
 
-    private Node buildByteLand(int cityCount, int p[]) {
+    private boolean unificationCompleted(Node rootCity) {
+        return rootCity.getAllNodes().size() == 1;
+    }
+
+    private Node buildByteLand(int p[]) {
+        int cityCount = p.length + 1;
+
         // chosen root city doesnt matter
         Integer rootCityId = 0;
         Map<Integer, Node> nodeMap = new HashMap<>();

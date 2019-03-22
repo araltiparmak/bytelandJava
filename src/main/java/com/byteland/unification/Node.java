@@ -65,4 +65,8 @@ public class Node {
     private boolean isLeaf() {
         return childNodes.size() == 0;
     }
+
+     boolean canUnite() {
+        return getParent() != null && !hasLeafChild();
+    }
 }
