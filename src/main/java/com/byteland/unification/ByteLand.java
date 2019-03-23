@@ -14,14 +14,14 @@ public class ByteLand {
 
         while (!unificationCompleted(rootCity)) {
             System.out.println("Step: " + step);
-            List<Integer> blackList = new ArrayList<>();
+            List<Integer> unitedCities = new ArrayList<>();
 
             rootCity.getAllNodes().
                     stream().
-                    filter(node -> node.canUnite() && fun(blackList, node)).
+                    filter(node -> node.canUnite() && !unitedCities.contains(node.getParent().getId())).
                     forEach(node -> {
-                        node.unionWithParent();
-                        blackList.add(node.getParent().getId());
+                        node.uniteWithParent();
+                        unitedCities.add(node.getParent().getId());
                     });
             step++;
             System.out.println("---------------");
@@ -29,10 +29,6 @@ public class ByteLand {
         System.out.println("--------------Unification Completed!----------------");
         return step;
 
-    }
-
-    boolean fun(List<Integer> blackList, Node node) {
-        return !blackList.contains(node.getParent().getId());
     }
 
     private boolean unificationCompleted(Node rootCity) {

@@ -46,8 +46,6 @@ class ValidationTest {
 
         assertFalse(validation.isRoadsValid(new String[]{"0", "2"}, 4));
         assertFalse(validation.isRoadsValid(new String[]{"0", "a"}, 3));
-
-        //todo: fix this
         assertFalse(validation.isRoadsValid(new String[]{"1", "1"}, 3));
     }
 }

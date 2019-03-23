@@ -1,6 +1,7 @@
 package com.byteland.unification;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class Validation {
@@ -48,7 +49,8 @@ class Validation {
         Stream<String> roadsStream = Arrays.stream(roadsArray);
         boolean containsNotValidIntegerValue = roadsStream.anyMatch(item -> (!isInt(item) || numberOfCities <= Integer.valueOf(item)));
         if (!containsNotValidIntegerValue && numberOfCities.equals(roadsArray.length + 1)) {
-            return true;
+            return IntStream.range(0, roadsArray.length - 1).
+                    noneMatch(r -> String.valueOf(r + 1).equals(roadsArray[r]));
         }
         System.out.println("Number of roads must be (Number of Cities -1)");
         return false;

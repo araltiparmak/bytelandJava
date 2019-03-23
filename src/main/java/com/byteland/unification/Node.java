@@ -51,7 +51,7 @@ public class Node {
         rootNode.getChildNodes().forEach(node -> addAllNodes(allNodes, node));
     }
 
-    public void unionWithParent() {
+    public void uniteWithParent() {
         System.out.println(name + " is merging with " + parent.name);
         getChildNodes().forEach(n -> n.setParent(parent));
         parent.removeChild(this);
