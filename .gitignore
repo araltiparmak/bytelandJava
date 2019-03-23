@@ -105,7 +105,7 @@ local.properties
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
 # .idea/modules.xml
- .idea/*.iml
+# .idea/*.iml
 # .idea/modules
 
 # CMake
@@ -144,7 +144,7 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
- *.iml
+# *.iml
 # modules.xml
 # .idea/misc.xml
 # *.ipr
