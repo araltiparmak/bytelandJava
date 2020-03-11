@@ -5,8 +5,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class ByteLandTest {
+
+    final ByteLand byteLand = new ByteLand();
+
+    @Test
+    public void unifyTest() {
+        for (int i = 0; i < ROUTES.length; i++) {
+            assertEquals(byteLand.unify(ROUTES[i]), EXPECTED_RESULTS[i]);
+        }
+    }
 
     private final int[][] ROUTES = {
             new int[]{0, 1},
@@ -20,18 +28,4 @@ public class ByteLandTest {
             new int[]{0, 11, 6, 6, 4, 1, 11, 1, 7, 3, 0, 10, 7, 4, 2, 10}};
 
     private final int[] EXPECTED_RESULTS = {2, 4, 5, 9, 4, 5, 7, 5, 5};
-
-    @Test
-    public void unifyTest() {
-
-        int j = 0;
-        for (int[] i : ROUTES) {
-
-            ByteLand byteLand = new ByteLand();
-
-            assertEquals(byteLand.unify(i), EXPECTED_RESULTS[j++]);
-
-        }
-
-    }
 }

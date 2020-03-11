@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Node {
 
-    private Integer id;
+    private final Integer id;
     private Node parent;
     private String name;
-    private List<Node> childNodes = new ArrayList<>();
+    private final List<Node> childNodes = new ArrayList<>();
 
     public Node(int value) {
         this.id = value;
@@ -36,10 +36,6 @@ public class Node {
         childNodes.remove(node);
     }
 
-    private List<Node> getChildNodes() {
-        return childNodes;
-    }
-
     public List<Node> getAllNodes() {
         List<Node> allNodes = new ArrayList<>();
         addAllNodes(allNodes, this);
@@ -48,14 +44,19 @@ public class Node {
 
     private void addAllNodes(List<Node> allNodes, Node rootNode) {
         allNodes.add(rootNode);
-        rootNode.getChildNodes().forEach(node -> addAllNodes(allNodes, node));
+        rootNode.childNodes.forEach(node -> addAllNodes(allNodes, node));
     }
 
-    public void uniteWithParent() {
+    public int uniteWithParent() {
         System.out.println(name + " is merging with " + parent.name);
-        getChildNodes().forEach(n -> n.setParent(parent));
+        childNodes.forEach(n -> n.setParent(parent));
         parent.removeChild(this);
         parent.name += "_" + name;
+        return parent.getId();
+    }
+
+    public boolean unificationCompleted() {
+        return parent == null && childNodes.size() == 0;
     }
 
     public boolean hasLeafChild() {
@@ -66,7 +67,11 @@ public class Node {
         return childNodes.size() == 0;
     }
 
-     boolean canUnite() {
+    public boolean canUnite() {
         return getParent() != null && !hasLeafChild();
+    }
+
+    public boolean isRoot(Integer rootCityId) {
+        return rootCityId.equals(id);
     }
 }

@@ -8,56 +8,59 @@ import java.util.Arrays;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Validation validation = new Validation();
+        final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        final Validation validation = new Validation();
 
-        Integer numberOfTestCases = askNumberOfTestCases(br, validation);
+        int numberOfTestCases = askNumberOfTestCases(br, validation);
 
         while (numberOfTestCases != 0) {
 
-            Integer numberOfCities = askNumberOfCities(br, validation);
+            int numberOfCities = askNumberOfCities(br, validation);
 
             int[] p = askRoadsBetweenCities(br, validation, numberOfCities);
 
-            ByteLand byteLand = new ByteLand();
+            final ByteLand byteLand = new ByteLand();
             int stepCount = byteLand.unify(p);
 
-            System.out.println("total step:" + stepCount);
+            System.out.println("Total steps:" + stepCount);
             numberOfTestCases--;
         }
     }
 
-    private static Integer askNumberOfTestCases(BufferedReader br, Validation validation) throws IOException {
+    private static int askNumberOfTestCases(BufferedReader br, Validation validation) throws IOException {
         String numberOfTestCasesStr;
         do {
-            System.out.print("Number of Test Cases: ");
+            System.out.print("Number of test cases: ");
             numberOfTestCasesStr = br.readLine();
         }
         while (!validation.isNumberOfTestCasesValid(numberOfTestCasesStr));
+
         return Integer.parseInt(numberOfTestCasesStr);
     }
 
 
-    private static Integer askNumberOfCities(BufferedReader br, Validation validation) throws IOException {
+    private static int askNumberOfCities(BufferedReader br, Validation validation) throws IOException {
         String numberOfCitiesStr;
         do {
-            System.out.print("Number of Cities: ");
+            System.out.print("Number of cities: ");
             numberOfCitiesStr = br.readLine();
         }
         while (!validation.isNumberOfCitiesValid(numberOfCitiesStr));
+
         return Integer.parseInt(numberOfCitiesStr);
     }
 
     private static int[] askRoadsBetweenCities(BufferedReader br, Validation validation, Integer numberOfCities) throws IOException {
         String[] roadsArray;
         do {
-            System.out.print("Roads between Cities: ");
+            System.out.print("Roads between cities: ");
             String roads = br.readLine();
             roadsArray = roads.split("\\s");
         }
         while (!validation.isRoadsValid(roadsArray, numberOfCities));
-        return Arrays.stream(roadsArray).mapToInt(Integer::parseInt).toArray();
+
+        return Arrays.stream(roadsArray)
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
-
-
 }
